@@ -20,16 +20,18 @@ services:
       - "traefik.docker.network=dokploy-network"
 
   # 2. WebGL Static Web Client
-  nzp-client:
-    image: nginx:alpine
+nzp-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     restart: unless-stopped
-    volumes:
-      - ./web-client:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80/tcp"
     networks:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nzp-client.rule=Host(`nzp.luisjcenteno.dev`)"
+      - "traefik.http.routers.nzp-client.rule=Host(`nzp.yourdomain.com`)"
       - "traefik.http.routers.nzp-client.entrypoints=websecure"
       - "traefik.http.routers.nzp-client.tls.certresolver=letsencrypt"
       - "traefik.http.services.nzp-client.loadbalancer.server.port=80"
