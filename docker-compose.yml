@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 1. Dedicated WebSocket Game Server
+  nzp-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nzp-server.rule=Host(`
+nzp-ws.luisjcenteno.dev`)"
+      - "traefik.http.routers.nzp-server.entrypoints=websecure"
+      - "traefik.http.routers.nzp-server.tls.certresolver=letsencrypt"
+      - "traefik.http.services.nzp-server.loadbalancer.server.port=27500"
+      - "traefik.docker.network=dokploy-network"
+
+  # 2. WebGL Static Web Client
+  nzp-client:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./web-client:/usr/share/nginx/html:ro
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nzp-client.rule=Host(`nzp.luisjcenteno.dev`)"
+      - "traefik.http.routers.nzp-client.entrypoints=websecure"
+      - "traefik.http.routers.nzp-client.tls.certresolver=letsencrypt"
+      - "traefik.http.services.nzp-client.loadbalancer.server.port=80"
+      - "traefik.docker.network=dokploy-network"
+
+networks:
+  dokploy-network:
+    external: true
