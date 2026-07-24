@@ -15,7 +15,7 @@ RUN chmod +x nzportable64-sdl
 EXPOSE 27500/tcp
 
 # Launch game server on map 'ndu' (Nacht der Untoten)
-ENTRYPOINT ["./nzportable64", "-dedicated", "+map", "ndu"]
+ENTRYPOINT ["./nzportable64-sdl", "-dedicated", "+map", "ndu"]
 
 # Set WebSockets protocol mode and port
 CMD ["+com_protocolname", "NZP-REBOOT-WEB", "+sv_public", "1", "+sv_port_tcp", "27500"]
