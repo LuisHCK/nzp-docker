@@ -4,7 +4,7 @@ FROM alpine:latest AS fetcher
 RUN apk add --no-cache git ca-certificates
 
 # Clone the web client directly from official repository
-RUN git clone https://github.com/nzp-team/nzp-team.github.io.git /app
+RUN git clone --depth 1 https://github.com/nzp-team/nzp-team.github.io.git /app
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
