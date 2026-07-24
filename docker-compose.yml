@@ -20,7 +20,7 @@ services:
       - "traefik.docker.network=dokploy-network"
 
   # 2. WebGL Static Web Client
-nzp-client:
+  nzp-client:
     build:
       context: ./client
       dockerfile: Dockerfile
