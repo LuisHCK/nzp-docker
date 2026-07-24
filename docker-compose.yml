@@ -11,8 +11,7 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nzp-server.rule=Host(`
-nzp-ws.luisjcenteno.dev`)"
+      - "traefik.http.routers.nzp-server.rule=Host(`nzp-ws.luisjcenteno.dev`)"
       - "traefik.http.routers.nzp-server.entrypoints=websecure"
       - "traefik.http.routers.nzp-server.tls.certresolver=letsencrypt"
       - "traefik.http.services.nzp-server.loadbalancer.server.port=27500"
