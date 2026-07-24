@@ -22,7 +22,7 @@ services:
   # 2. WebGL Static Web Client
   nzp-client:
     build:
-      context: ./client
+      context: ./web-client
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
